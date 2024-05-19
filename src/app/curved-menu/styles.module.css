@@ -69,10 +69,6 @@
   left: -99px;
   width: 100px;
   height: 100%;
-  fill: rgb(17 24 39 / var(--tw-bg-opacity));
+  fill: rgb(10 10 10 / var(--tw-bg-opacity));
   stroke: none;
-
-  .dark {
-    fill: rgb(17 24 39 / var(--tw-bg-opacity));
-  }
 }
