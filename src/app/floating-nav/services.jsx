@@ -54,14 +54,6 @@ export default function Services() {
       </div>
       <BentoGrid>
         {items.map((item, i) => (
-          // <BentoGridItem
-          //   key={i}
-          //   title={item.title}
-          //   description={item.description}
-          //   header={item.header}
-          //   icon={item.icon}
-          //   className={cn("border", i === 3 || i === 6 ? "md:col-span-2" : "")}
-          // />
           <Dialog
             key={i}
             transition={{
