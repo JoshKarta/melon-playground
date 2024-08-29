@@ -9,6 +9,9 @@ import { cn } from "@/lib/utils";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 import { IconBurger } from "@tabler/icons-react";
+import { AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
+import { iconVariants } from "@/constants/animations";
 
 const transition = {
   type: "spring",
@@ -59,6 +62,7 @@ export const MenuItem = ({ setActive, active, item, children }) => {
 };
 
 export const Menu = ({ setActive, children }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -73,6 +77,7 @@ export const Menu = ({ setActive, children }) => {
 
   return (
     <nav className="w-full h-16 z-50 py-4 flex items-center sticky top-0">
+      {/* Desktop */}
       <motion.div
         // resets the state
         onMouseLeave={() => setActive(null)}
@@ -81,11 +86,11 @@ export const Menu = ({ setActive, children }) => {
         transition={{
           delay: 0.05,
           duration: 0.3,
-          ease: "easeInOut",
-          type: "just",
+          ease: [0.45, 0, 0.55, 1],
+          // type: "just",
         }}
         className={cn(
-          "container flex items-center justify-between py-2 rounded-full w-full relative",
+          "container lg:flex items-center justify-between py-2 rounded-full w-full relative hidden",
           isScrolled ? "backdrop-blur-md shadow-lg border" : ""
         )}
       >
@@ -124,13 +129,70 @@ export const Menu = ({ setActive, children }) => {
             Book a Call
           </Button>
         </div>
+      </motion.div>
 
-        {/* Mobile */}
-        <div className="inline-block lg:hidden">
-          <Button variant="icon">
-            <IconBurger />
-          </Button>
-        </div>
+      {/* Mobile */}
+      <motion.div
+        initial={{ y: 0, width: "100%" }}
+        animate={{ y: isScrolled ? 5 : 0, width: isScrolled ? "90%" : "100%" }}
+        transition={{
+          delay: 0.05,
+          duration: 0.3,
+          ease: [0.45, 0, 0.55, 1],
+          // type: "just",
+        }}
+        className={cn(
+          "container flex justify-between lg:hidden rounded-full py-2",
+          isScrolled ? "backdrop-blur-md shadow-lg border" : ""
+        )}
+      >
+        <Link href={"/"} className="hover:scale-95">
+          <img src="/next.svg" alt="" className="aspect-video w-16" />
+        </Link>
+
+        <Button variant="icon" onClick={() => setIsOpen(!isOpen)}>
+          <div style={{ position: "relative", width: "24px", height: "24px" }}>
+            <AnimatePresence initial={false} mode="wait">
+              {isOpen ? (
+                <motion.div
+                  key="x"
+                  variants={iconVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  transition={{ duration: 0.2 }}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                  }}
+                >
+                  <X />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="burger"
+                  variants={iconVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  transition={{ duration: 0.2 }}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                  }}
+                >
+                  <IconBurger />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </Button>
       </motion.div>
     </nav>
   );

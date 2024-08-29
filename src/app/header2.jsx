@@ -23,7 +23,7 @@ export default function Header2({ className }) {
           title: "Red theme",
           href: "/floating-nav",
           img: "",
-          description: "",
+          description: "Lorem ipsum odor amet, consectetuer adipiscing elit.",
         },
       ],
     },
@@ -91,7 +91,7 @@ export default function Header2({ className }) {
                 ))}
 
               {category === "grouped" && (
-                <div className="grid grid-cols-2 gap-10 p-4">
+                <div className="grid md:grid-cols-2 gap-10 p-4">
                   {itemList.map((item) => (
                     <ProductItem
                       key={item.href}
