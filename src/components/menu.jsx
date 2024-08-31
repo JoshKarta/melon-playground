@@ -43,7 +43,7 @@ export const MenuItem = ({ setActive, active, item, children }) => {
                 transition={transition}
                 // layoutId ensures smooth animation
                 layoutId="active"
-                className="bg-white dark:bg-black backdrop-blur-sm rounded-2xl overflow-hidden border dark:border-white/[0.2] shadow-lg"
+                className="bg-white dark:bg-background backdrop-blur-sm rounded-2xl overflow-hidden border dark:border-white/[0.2] shadow-lg"
               >
                 <motion.div
                   // layout ensures smooth animation
@@ -149,6 +149,22 @@ export const Menu = ({ setActive, children }) => {
         <Link href={"/"} className="hover:scale-95">
           <img src="/next.svg" alt="" className="aspect-video w-16" />
         </Link>
+
+        {/* Section for children */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              variants={iconVariants}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.2 }}
+              className="absolute bg-white border rounded-2xl w-full left-0 top-16 p-4 shadow-lg"
+            >
+              <div className="flex items-center gap-4">{children}</div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <Button variant="icon" onClick={() => setIsOpen(!isOpen)}>
           <div style={{ position: "relative", width: "24px", height: "24px" }}>
