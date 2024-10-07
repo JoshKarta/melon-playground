@@ -121,8 +121,9 @@ export const Menu = ({ setActive, children }) => {
             <Button
               variant="ghost"
               className="hover:bg-transparent border border-transparent hover:border-secondary rounded-xl"
+              asChild
             >
-              SignIn
+              <Link href="/login">SignIn</Link>
             </Button>
           </motion.div>
           <Button variant="secondary" className="rounded-xl">
